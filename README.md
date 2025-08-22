@@ -84,3 +84,18 @@ This demonstrates my ability to take my current strengths and extend them into s
 
 - **Outputs received:** Initial drafts of Dockerfile, secret scanner skeleton, Terraform S3 config, OPA policy, and workflow YAML.  
 - **Modifications made:** Tightened regexes and entropy handling in scanner, simplified Dockerfile to skip Node build, split IR workflow into two jobs, and added explicit tool installation to CI. Also edited docs to reflect the provided app context and assessment requirements.
+
+## Secrets Management Note
+
+As part of Block 1 (Secret Detection Engine) I deliberately tested with a dummy AWS key to validate that both GitHub’s built-in secret scanning and my custom scanner would flag it.  
+The secret was **not valid** and posed no real risk, but it demonstrated that the detection mechanisms work as intended.
+
+Key practices I would follow in production:
+- Never commit real secrets to source control.
+- Use GitHub Actions secrets or AWS OIDC roles for authentication.
+- Revoke and rotate any credential that is accidentally committed.
+- Clean the commit history if an actual secret leak occurred.
+
+<img width="1885" height="817" alt="image" src="https://github.com/user-attachments/assets/e19295d5-bae9-40e4-8b15-6e4890570971" />
+
+This test highlights the importance of automated secret detection in CI/CD pipelines and shows how I would handle real secrets safely.
