@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: application/Dockerfile
+    image: devsecops/react-app:latest
+    ports:
+      - "8080:8080"
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=32m
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
