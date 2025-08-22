@@ -1,0 +1,20 @@
+patterns:
+  - id: aws_access_key
+    regex: 'AKIA[0-9A-Z]{16}'
+    severity: high
+  - id: aws_secret_key
+    regex: '(?i)aws(.{0,20})?(secret|access).{0,20}?([\'"][0-9a-zA-Z/+]{40}[\'"])'
+    severity: high
+  - id: generic_api_key
+    regex: '(?i)(api[_-]?key|token)[\'"\s:=]{1,5}([0-9a-zA-Z_\-]{16,64})'
+    severity: medium
+  - id: password_assignment
+    regex: '(?i)password\s*[:=]\s*[\'"][^\'"]+[\'"]'
+    severity: medium
+  - id: jwt
+    regex: 'eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+'
+    severity: high
+entropy:
+  enabled: true
+  min_length: 20
+  threshold: 4.0
